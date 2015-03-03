@@ -19,7 +19,7 @@ public class CrateApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Assert.notNull(userService);
+//        Assert.notNull(userService);
     	userService.doStuff();
     }
 
