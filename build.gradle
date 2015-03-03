@@ -1,0 +1,61 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot' 
+
+jar {
+    baseName = 'spring-data-crate-example'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    mavenCentral()
+    maven {
+            url "http://repo.spring.io/libs-snapshot"
+    }
+    jcenter()
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.data:spring-data-commons:1.10.0.BUILD-SNAPSHOT")
+    compile("org.springframework:spring-tx")
+    compile name: 'spring-data-crate-1.0.0'
+    compile("io.crate:crate-client:0.47.4")
+    compile("org.apache.commons:commons-lang3:3.3.2")
+    
+    compile("javax.validation:validation-api:1.0.0.GA") // optional
+    compile("org.hibernate:hibernate-validator:4.2.0.Final") // optional    
+    
+    
+    testCompile("org.springframework.boot:spring-boot-starter-test") 
+}
+
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
